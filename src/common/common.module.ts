@@ -1,6 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 import { WinstonModule } from 'nest-winston';
 import { format, transports } from 'winston';
+import { ValidationService } from './validation.service';
 
 @Global()
 @Module({
@@ -10,5 +11,7 @@ import { format, transports } from 'winston';
       transports: [new transports.Console()],
     }),
   ],
+  providers: [ValidationService],
+  exports: [ValidationService],
 })
 export class CommonModule {}

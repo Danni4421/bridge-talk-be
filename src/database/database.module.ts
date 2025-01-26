@@ -4,6 +4,12 @@ import { DATABASE_CONNECTION } from './database-connection';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
 
+/**
+ * Import the schemas.
+ * This schemas is used to interprete object table.
+ */
+import * as usersSchema from '../users/schema';
+
 @Module({
   providers: [
     {
@@ -18,11 +24,14 @@ import { Pool } from 'pg';
         });
 
         return drizzle(pool, {
-          schema: {},
+          schema: {
+            ...usersSchema,
+          },
         });
       },
       inject: [ConfigService],
     },
   ],
+  exports: [DATABASE_CONNECTION],
 })
 export class DatabaseModule {}
